@@ -17,6 +17,7 @@ import 'package:world_skills_project/ui/widgets/bottom_bar/bottom_bar.dart';
 
 class AppRouter {
   static final navigatorKey = GlobalKey<NavigatorState>();
+
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: AppRoutes.onboardingScreen,

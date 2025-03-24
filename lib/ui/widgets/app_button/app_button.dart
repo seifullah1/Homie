@@ -17,6 +17,7 @@ class AppButton extends StatelessWidget {
     this.formState,
     this.isFontSize = false,
   });
+
   final String text;
   final double? width;
   final double? height;
@@ -33,37 +34,35 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (isEnable) {
-          if (!isLoading) {
-            if (formState == null) {
-              onPressed();
-            } else {
-              if (formState?.validate() == true) {
-                onPressed();
+      onTap:
+          isEnable && !isLoading
+              ? () {
+                if (formState == null || formState?.validate() == true) {
+                  onPressed();
+                }
               }
-            }
-          }
-        }
-      },
+              : null,
       child: AnimatedContainer(
         height: height ?? 54,
         width: width ?? double.infinity,
-        duration: Duration(seconds: 3),
+        duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: isEnable ? backgroundColor : AppColor.greyDark,
+          borderRadius: borderRadius ?? BorderRadius.circular(12),
+          color:
+              isEnable
+                  ? backgroundColor ?? AppColor.primaryColor
+                  : AppColor.greyDark,
         ),
         alignment: Alignment.center,
         child:
-            isLoading!
-                ? CircularProgressIndicator(color: AppColor.primaryColor)
+            isLoading
+                ? const CircularProgressIndicator(color: Colors.white)
                 : Text(
                   text,
                   style: TextStyle(
-                    fontSize: isFontSize == true ? 14 : 16,
+                    fontSize: isFontSize ? 14 : 16,
                     fontWeight: FontWeight.bold,
-                    color: AppColor.white,
+                    color: textColor ?? AppColor.white,
                   ),
                 ),
       ),
